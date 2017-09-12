@@ -1,9 +1,17 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import re
 import sys
 import argparse
 import logging
+
+if sys.version_info < (3,0):
+    sys.exit('program is currently only supported by python 3')
+    #https://stackoverflow.com/questions/1093322/how-do-i-check-what-version-of-python-is-running-my-script
+
+try:
+    import numpy as np
+except ImportError as e:
+    sys.exit('numpy is needed')
+
 
 logging.basicConfig(format='%(asctime)s %(message)s',
                     stream=sys.stdout, level=logging.INFO)
@@ -16,6 +24,14 @@ parser.add_argument('-n', '--normalize', action='store_true', help='normalize th
 parser.add_argument('-p', '--plot', action='store_true', help='plot the figure')
 parser.add_argument('-r', '--reverseF1', action='store_true', help='reverse F1 dimension')
 args = parser.parse_args()
+
+if args.plot:
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError as e:
+        logging.warning('matplotlib is optional, only needed for plotting')
+
+
 
 file = args.filename
 
@@ -45,7 +61,7 @@ def read_paramts(file):
         print(key, ':', value[0])
     print('no. of lines before data:', num_lns)
     if not para['n_row']:
-        print('the input file is wrong')
+        sys.exit('the input file is wrong')
     para['num_lns']=num_lns
     return para
 
@@ -61,9 +77,10 @@ def plt_fig(para, arr):
         y = np.linspace(y_end, y_start, num=int(para['n_row'][0]))
     else:
         y = np.linspace(y_start, y_end, num=int(para['n_row'][0]))
-    levels = [0.05, 0.07, 0.09, 0.12, 0.16, 0.22, 0.29, 0.39, 0.52, 0.70, 0.93]
+    #levels = [0.05, 0.07, 0.09, 0.12, 0.16, 0.22, 0.29, 0.39, 0.52, 0.70, 0.93, 1.00]
+    levels = np.logspace(-1.3, 0, num=10, endpoint=True)
     plt.figure()
-    CS = plt.contourf(x, y, arr_normalized, levels, cmap=plt.cm.Spectral)
+    CS = plt.contourf(x, y, arr_normalized, levels, cmap=plt.cm.jet)
     plt.colorbar(CS)
     plt.xlim(x_start, x_end)  # plt.ylim(-.5, 1.5)#plt.clabel(CS, inline=1, fontsize=10)
     plt.title('2D plot')
