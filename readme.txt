@@ -1,4 +1,1 @@
-this is a test 
-change something
-add sth
-sub sth
+python scripts for dealing with bruker solid-state NMR data
