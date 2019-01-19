@@ -1,3 +1,6 @@
+# YY
+# transform the 2D NMR data into a Origin-friendly format
+
 import re
 import sys
 import argparse
