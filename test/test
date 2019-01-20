@@ -1,0 +1,38 @@
+# File created = Tuesday, February 23, 2016 4:33:37 PM CET
+#
+# F1LEFT = 27.01512908935547 ppm. F1RIGHT = -6.032757345165415 ppm.
+# F2LEFT = 222.18930053710938 ppm. F2RIGHT = -201.2068203107928 ppm.
+# NROWS = 5 ( = number of points along the F1 axis)
+# NCOLS = 5 ( = number of points along the F2 axis)
+# In the following ordering is from the 'left' to the 'right' limits!
+# Lines beginning with '#' must be considered as comment lines.
+# row = 0
+1
+1
+1
+1
+1
+# row = 1
+1
+2
+2
+2
+1
+# row = 2
+1
+2
+3
+2
+1
+# row = 3
+1
+2
+2
+2
+1
+# row = 4
+1
+1
+1
+1
+1
